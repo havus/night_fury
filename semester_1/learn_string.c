@@ -8,8 +8,8 @@ int main() {
   printf("Using Backspace\b within a string \n");
   printf("Using\tTab within a string \n");
 
-  int length_char = sizeof("Hello world");
-  printf("Length char is: %d \n", length_char);
+  int lengthChar = sizeof("Hello world");
+  printf("Length char is: %d \n", lengthChar);
   printf("Length char is: %lu \n", sizeof("Hello world"));
 
   // %d	Print an integer number printed in decimal (preceded by a minus sign if the number is negative).
@@ -23,9 +23,9 @@ int main() {
   // %s	Print a string, got replaced by value of a string variable.
   // %o got replaced by a octal value corresponding to integer variable.
 
-  int student_number;
-  student_number = 150;
-  printf("Number of students in Class X is %d \n", student_number);
+  int studentNumber;
+  studentNumber = 150;
+  printf("Number of students in Class X is %d \n", studentNumber);
 
 
   // char name[] = "John";
@@ -59,36 +59,36 @@ int main() {
   strcat(str, "concatenated.");
   printf("%s \n", str);
 
-  // char *first_name    = "John";
-  // char *last_name     = "Doe";
-  // char full_name[80]  = "Lorem ipsum";
-  // strcpy(full_name, "Full name is ");
-  // strcat(full_name, first_name);
-  // strcat(full_name, " ");
-  // strcat(full_name, last_name);
-  // printf("%s \n", full_name);
+  // char *firstName    = "John";
+  // char *lastName     = "Doe";
+  // char fullName[80]  = "Lorem ipsum";
+  // strcpy(fullName, "Full name is ");
+  // strcat(fullName, firstName);
+  // strcat(fullName, " ");
+  // strcat(fullName, lastName);
+  // printf("%s \n", fullName);
 
-  char full_name[256];
-  snprintf(full_name, sizeof(full_name), "%s%s", "John", " Doe");
-  printf("His fullname is %s, with size %lu \n", full_name, sizeof(full_name));
+  char fullName[256];
+  snprintf(fullName, sizeof(fullName), "%s%s", "John", " Doe");
+  printf("His fullname is %s, with size %lu \n", fullName, sizeof(fullName));
 
   // CONSTANT
   const char *TITLE = "Learn basic c language";
   printf("%s \n", TITLE);
 
 
-  char input_name[20];
+  char inputedName[20];
   printf("Enter your name: \n");
-  // scanf("%s", input_name);
-  // scanf("%20[^\n]", input_name); // handle multi words
-  // scanf("%[^\n]", input_name);
-  fgets(input_name, 20, stdin); // handle multi words
-  printf("Your name is %s", input_name);
+  // scanf("%s", inputedName);
+  // scanf("%20[^\n]", inputedName); // handle multi words
+  // scanf("%[^\n]", inputedName);
+  fgets(inputedName, 20, stdin); // handle multi words
+  printf("Your name is %s", inputedName);
 
-  int input_age;
+  int inputedAge;
   printf("Enter your age: \n");
-  scanf("%d", &input_age);
-  printf("Your name is %d \n", input_age);
+  scanf("%d", &inputedAge);
+  printf("Your name is %d \n", inputedAge);
 
 
   // int (*data[2])[5];
