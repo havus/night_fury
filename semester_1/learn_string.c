@@ -88,7 +88,7 @@ int main() {
   // printf("%s \n", fullName);
 
   char fullName[256];
-  snprintf(fullName, sizeof(fullName), "%s%s", "John", " Doe");
+  snprintf(fullName, sizeof(fullName), "%s %s", "John", "Doe");
   printf("His fullname is %s, with size %lu \n", fullName, sizeof(fullName));
 
   // CONSTANT
@@ -107,7 +107,7 @@ int main() {
   int inputedAge;
   printf("Enter your age: \n");
   scanf("%d", &inputedAge);
-  printf("Your name is %d \n", inputedAge);
+  printf("Your age is %d \n", inputedAge);
 
 
   // Format finder
