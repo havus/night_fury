@@ -1,6 +1,25 @@
 #include <stdio.h>
 #include <string.h>
 
+// http://www.robertgamble.net/2012/01/c11-generic-selections.html
+#define printf_dec_format(x) _Generic((x), \
+  char: "%c", \
+  signed char: "%hhd", \
+  unsigned char: "%hhu", \
+  signed short: "%hd", \
+  unsigned short: "%hu", \
+  signed int: "%d", \
+  unsigned int: "%u", \
+  long int: "%ld", \
+  unsigned long int: "%lu", \
+  long long int: "%lld", \
+  unsigned long long int: "%llu", \
+  float: "%f", \
+  double: "%f", \
+  long double: "%Lf", \
+  char *: "%s", \
+  void *: "%p")
+
 int main() {
   printf("Print single quote ' \n");
   printf("Print double quote \" \n");
@@ -91,12 +110,9 @@ int main() {
   printf("Your name is %d \n", inputedAge);
 
 
-  // int (*data[2])[5];
-  // int x1[5];
-  // data[0] = &x1;
-  // data[1] = &x1;
-
-  // printf(data[0]);
+  // Format finder
+  char proto = 'a';
+  printf("The format is %s\n", printf_dec_format(proto));
 
   return 0;
 }
