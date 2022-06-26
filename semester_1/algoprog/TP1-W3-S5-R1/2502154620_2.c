@@ -2,9 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define basicSalary             2000000
-#define minimumWorkHoursInMonth 176
-#define overtimeRate            3000
+#define basicSalary               2000000
+#define overtimeRate              3000
+#define minimumWorkHoursOneMonth  176
 
 
 int calculatePositionalAllowance(int jobLevel) {
@@ -30,7 +30,8 @@ int calculatePositionalAllowance(int jobLevel) {
 char* formatPrice(int price) {
   // TODO: handle 2 decimal
 
-  char* result = malloc(256);
+  char* result      = malloc(256);
+  char delimiter    = '.';
   char convertedPriceS[256];
 
   sprintf(convertedPriceS, "%d", price);
@@ -45,8 +46,7 @@ char* formatPrice(int price) {
     char nextCharIsPresent  = convertedPriceS[i+1] != '\0';
 
     if (moduloThreeIsZero && nextCharIsPresent) {
-      char titik = '.';
-      strncat(result, &titik, 1);
+      strncat(result, &delimiter, 1);
     }
   }
 
@@ -93,7 +93,7 @@ int main() {
 
   int totalPositionalAllowance  = calculatePositionalAllowance(jobLevel);
   int totolEducationAllowance   = basicSalary * defineAllowancePercentageFromEducation(lastEducation);
-  int totalOvertimeAllowance    = (totalWorkHoursInMonth - minimumWorkHoursInMonth) * overtimeRate;
+  int totalOvertimeAllowance    = (totalWorkHoursInMonth - minimumWorkHoursOneMonth) * overtimeRate;
 
   // avoid negative value from totalOvertimeAllowance
   if (totalOvertimeAllowance < 0) {
