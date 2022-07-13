@@ -23,6 +23,17 @@ void learnPointerToPointer() {
   printf("value x = %d\n", x);
 }
 
+void learnPointerToPointer2() {
+  int num = 9;
+  int *pointer; 
+  pointer = &num;
+
+  printf("value num is: %d, address is: %p\n", num, &num);
+  // address is different
+  printf("value pointer is: %d, address is: %p\n", *pointer, &pointer);
+}
+
 int main() {
-  learnPointerToPointer();
+  // learnPointerToPointer();
+  learnPointerToPointer2();
 }
