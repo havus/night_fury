@@ -84,17 +84,24 @@ char* createStr() {
   return str;
 }
 
-int testSwitch(char contohString[]) {
-  // printf("Output: %p", &(contohString));
+int testSwitch(char contohCh) {
+  // printf("Output: %p", &(contohCh));
 
-  switch(&(contohString)) { // switch(0x11111) {
-    case &"hello": // case: 0x123123
-      printf("case hello: %s", contohString);
+  switch (contohCh) { // switch(0x11111) {
+    case 'a': // case: 0x123123
+      printf("case a: %c", contohCh);
     default:
       printf("masuk default");
   }
 
   return 0;
+}
+
+void learnParamChar(char param0, char param1[], char *param2, const char *param3) {
+  printf("param0 = %c\n", param0);
+  printf("param1 = %s\n", param1);
+  printf("param2 = %s\n", param2);
+  printf("param3 = %s\n", param3);
 }
 
 int main() {
@@ -108,8 +115,13 @@ int main() {
   // sayHi("John", 24);
   // calculatorFunc();
 
-  char strEx[] = "hello"; // /x123123
-  testSwitch(strEx);
+  // char strEx[] = "hello"; // /x123123
+  // testSwitch(strEx);
+
+  // char ch = 'A';
+  char sentence[] = "Hello world";
+  // learnParamChar('A', sentence, sentence, sentence);
+  learnParamChar('A', "Hello world", "hello wo", "Hello w");
 
   return 0;
 }
