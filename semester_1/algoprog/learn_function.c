@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define SUM(x, y) (x + y);
 
 void sayHi(char name[], int age) {
   printf("Hi %s! you are %d \n", name, age);
@@ -104,6 +105,58 @@ void learnParamChar(char param0, char param1[], char *param2, const char *param3
   printf("param3 = %s\n", param3);
 }
 
+void learnDynamicMemAllocation() {
+  int *num;
+  num = (int *) malloc(sizeof(int));
+
+  printf("num address = %p\n", num);
+  printf("num address = %p\n", num);
+}
+
+void print(int x) {
+  printf("the result is %d\n", x);
+}
+
+void outerFunc(void (*someFunc)(int), int num) {
+  if (num > 10) {
+    // someFunc(num);
+    (*someFunc)(num); // same with above
+  } else {
+    printf("dont need to execute something\n");
+  }
+}
+
+void learnOuterFunction() {
+  outerFunc(print, 20);
+}
+
+int addition(int num1) {
+  return num1 + num1;
+}
+
+int multiplication(int num1) {
+  return num1 * num1;
+}
+
+void learnOtherFunctionStyle() {
+  // https://stackoverflow.com/questions/9410/how-do-you-pass-a-function-as-a-parameter-in-c
+  int x;
+  int(*funcVar) (int);
+
+  funcVar = addition;
+  x = (*funcVar)(10);
+  printf("x -> funcVar#addition = %d\n", x);
+
+  funcVar = multiplication;
+  x = (*funcVar)(10);
+  printf("x -> funcVar#multiplication = %d\n", x);
+
+  // aliasAddition();
+  // f = function1;
+  // (*f) (int)
+  // printf("var f = %d \n", f);
+}
+
 int main() {
   // int luckyNumber[] = {2, 3, 4, 10, 13, 18, 78};
   // printf("%d \n", luckyNumber[0]);
@@ -118,10 +171,12 @@ int main() {
   // char strEx[] = "hello"; // /x123123
   // testSwitch(strEx);
 
-  // char ch = 'A';
-  char sentence[] = "Hello world";
-  // learnParamChar('A', sentence, sentence, sentence);
-  learnParamChar('A', "Hello world", "hello wo", "Hello w");
+  // char sentence[] = "Hello world";
+  // learnParamChar('A', "Hello world", "hello wo", "Hello w");
+
+  // learnDynamicMemAllocation();
+  // learnOuterFunction();
+  (*learnOtherFunctionStyle)();
 
   return 0;
 }
