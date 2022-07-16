@@ -1,0 +1,5 @@
+
+this text will be saved in sample_write.txt using fputc :)
+this text will be saved in sample_write.txt using fputc :)
+this is new
+this is new again
