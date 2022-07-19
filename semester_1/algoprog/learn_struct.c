@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 struct Birth { // structure data type
   int day, month, year;
@@ -29,12 +30,10 @@ struct {
   unsigned short blink      : 1;
 } screen[25][80]; // total 14 bit = 2 bytes
 
-
-
-int main() {
+void example1() {
   struct Person andi;
   andi.age = 7;
-  // *andi.firstName = "andi";
+  // andi.firstName[] = "andi"; // will be error
   strcpy(andi.firstName, "andi");
 
   struct Birth andiBirthday = { 1, 1, 2000 };
@@ -51,6 +50,24 @@ int main() {
 
   Stdnt john = { "John doe", 15 };
   printf("john.name = %s\n", john.name);
+}
+
+void example2() {
+  struct Person *andi;
+  andi = malloc(sizeof(struct Person)); // without this line i got "[1] 14933 bus error", WHY?
+
+  strcpy(andi->firstName, "Andi");
+  andi->age = 7;
+
+  printf("andi.firstName = %s\n", andi->firstName);
+  printf("andi.age = %d\n", andi->age);
+
+  free(andi);
+}
+
+int main() {
+  // example1();
+  example2();
 
   return 0;
 }
