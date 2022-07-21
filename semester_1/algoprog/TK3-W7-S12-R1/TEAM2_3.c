@@ -34,28 +34,6 @@ int main() {
     -	TanggalLahir merupakan struct yang berisi Tanggal, Bulan dan Tahun 
     Kemudian buatlah program untuk menginput data sebanyak 5 dosen (menggunakan array of structure).
   */
-  /*
-    database array of structs = [
-      Dosen{NoDosen, NIDN, Nama, Alamat, Tempat, TanggalLahir},
-      Dosen{NoDosen, NIDN, Nama, Alamat, Tempat, TanggalLahir},
-      Dosen{NoDosen, NIDN, Nama, Alamat, Tempat, TanggalLahir},
-    ]
-  */
-  /*
-    array = [
-      data[String, Int], data[String, Int]
-    ]
-    ex: [1,2,3,4,5]
-    ------------------------------------------------------------------------------
-    struct = {
-      NoDosen:  String,
-      NIDN:     String,
-    }
-    ex: {
-      NoDosen:  'oke',
-      NIDN:     '0123',
-    }
-  */
 
   int jumlahDosen;
   printf("Masukkan jumlah dosen yg diinginkan: "); scanf("%d", &jumlahDosen);
@@ -66,12 +44,6 @@ int main() {
     struct Dosen    tempDosen;
     struct Address  tempAlamat;
     struct Birthday tempBirthday;
-
-    // struct Birthday TanggalLahir;
-
-    // int Tanggal;
-    // int Bulan;
-    // int Tahun;
 
     printf("Masukkan NoDosen #%d: ", i+1);      scanf("%s", tempDosen.NoDosen);
     printf("Masukkan NIDN #%d: ", i+1);         scanf("%s", tempDosen.NIDN);
@@ -95,7 +67,7 @@ int main() {
   printf("\nPlease wait we'll print the results...\n\n");
 
   for (int i = 0; i < jumlahDosen; i++) {
-    printf("Dosen #%d:\n", i+i);
+    printf("Dosen #%d:\n", i + 1);
     printf("    NoDosen: %s\n", database[i].NoDosen);
     printf("    NIDN: %s\n",    database[i].NIDN);
     printf("    Nama: %s\n",    database[i].Nama);
