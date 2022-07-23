@@ -23,6 +23,11 @@ void learnPointerToPointer() {
   printf("value x = %d\n", x);
 }
 
+void changeValue(int *num) {
+  printf("value num=%d\n", *num);
+  *num = (*num) + 1;
+}
+
 void learnPointerToPointer2() {
   int num = 9;
   int *pointer; 
@@ -31,6 +36,9 @@ void learnPointerToPointer2() {
   printf("value num is: %d, address is: %p\n", num, &num);
   // address is different
   printf("value pointer is: %d, address is: %p\n", *pointer, &pointer);
+
+  changeValue(pointer);
+  printf("value num changed=%d\n", *pointer);
 }
 
 int main() {
