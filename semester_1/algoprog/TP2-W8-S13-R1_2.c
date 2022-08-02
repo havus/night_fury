@@ -175,6 +175,8 @@ int main() {
     default: {
       printf("Invalid input\n");
       printHelp();
+      continueLoop = 0;
+      break;
     }}
 
     selectedOption = 0;
@@ -182,7 +184,3 @@ int main() {
 
   return 0;
 }
-
-// @todo
-// report bug;
-//  when "Masukkan input anda: " -> if we input alphabet, infinite loop
