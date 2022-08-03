@@ -44,8 +44,11 @@ void inputOrder() {
     printf("Nama Minuman (Kopi, Teh, Coklat atau Soda): "); scanf("%s", newOrder.name);
 
     char lowercaseInput[50];
-    for (int i = 0; newOrder.name[i]; i++) {
+    for (int i = 0; i <= strlen(newOrder.name); i++) {
       lowercaseInput[i] = tolower(newOrder.name[i]);
+      if (i == strlen(newOrder.name)) {
+        lowercaseInput[i] = '\0';
+      }
     }
 
     char *validNames[4] = { "kopi", "teh", "coklat", "soda" };
@@ -53,6 +56,7 @@ void inputOrder() {
       if (strcmp(lowercaseInput, validNames[i]) == 0) {
         isValidInput = 1;
       }
+      // debug: printf("%s - %s - %d\n", lowercaseInput, validNames[i], strcmp(lowercaseInput, validNames[i]));
     }
     if (!isValidInput) {
       printf("Invalid input, pilihan: Kopi, Teh, Coklat atau Soda\n");
@@ -67,8 +71,11 @@ void inputOrder() {
     printf("Size Minuman (Small, Medium dan Largest): "); scanf("%s", newOrder.size);
 
     char lowercaseInput[50];
-    for (int i = 0; newOrder.size[i]; i++) {
+    for (int i = 0; i <= strlen(newOrder.size); i++) {
       lowercaseInput[i] = tolower(newOrder.size[i]);
+      if (i == strlen(newOrder.size)) {
+        lowercaseInput[i] = '\0';
+      }
     }
 
     char *validNames[3] = { "small", "medium", "largest" };
@@ -91,8 +98,11 @@ void inputOrder() {
     printf("Penyajian Minuman (Dingin, panas atau hangat): "); scanf("%s", newOrder.temperature);
 
     char lowercaseInput[50];
-    for (int i = 0; newOrder.temperature[i]; i++) {
+    for (int i = 0; i <= strlen(newOrder.temperature); i++) {
       lowercaseInput[i] = tolower(newOrder.temperature[i]);
+      if (i == strlen(newOrder.temperature)) {
+        lowercaseInput[i] = '\0';
+      }
     }
 
     char *validNames[3] = { "dingin", "panas", "hangat" };
