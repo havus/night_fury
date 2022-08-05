@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 void learnPointerToPointer() {
   int x   = 5;
@@ -41,7 +42,49 @@ void learnPointerToPointer2() {
   printf("value num changed=%d\n", *pointer);
 }
 
+void learnpointerandarray() {
+  int a[] = { 1, 3, 5, 7, 9 };
+  printf("%p\n", a);
+  printf("%p\n", &a[0]);
+  printf("%d\n", a[0]);
+  printf("%d\n", *a);
+  printf("%d\n", *(&a[0]+3)); // &a[0] address of index 0
+  // OUTPUT:
+  // -1079271776
+  // -1079271776
+  // 1
+  // 1
+  // 7
+
+  // with loop
+  for (int i = 0; i < 5; i++) {
+    printf("address = %p\n", &a[i]);
+    printf("address = %p\n", a+i);
+    printf("next address = %p\n", a+i);
+    printf("value = %d\n", a[i]);
+    printf("value = %d\n", *(a+i));
+    printf("next value = %d\n", *(&a[i]+1));
+    printf("================\n");
+  }
+}
+
+void learnarrayofchar() {
+  char c[8];
+  c[0] = 'j';
+  c[1] = 'o';
+  c[2] = 'h';
+  c[3] = 'n';
+
+  printf("%s\n", c);
+  printf("length=%lu\n", strlen(c));
+
+  c[4] = '\0'; // without this we will got garbage value
+  printf("length=%lu\n", strlen(c));
+}
+
 int main() {
   // learnPointerToPointer();
-  learnPointerToPointer2();
+  // learnPointerToPointer2();
+  // learnpointerandarray();
+  learnarrayofchar();
 }
