@@ -1,0 +1,69 @@
+class StoreSetting {
+  function create(name, address) {
+    INSERT INTO settings WITH name, address
+  }
+
+  function update(id:, payload: { name:, address: }) {
+    UPDATE INTO table settings where id WITH name, address
+  }
+}
+
+class User {
+  function create(email, name, hash_password, role) {
+    INSERT INTO table users WITH name, email, hash_password, role, status
+  }
+
+  function update(id:, payload: { email:, name:, hash_password:, status: }) {
+    UPDATE INTO table users where id WITH name, email, hash_password, status
+  }
+
+  function disable(id) {
+    self.update(id, payload{status: inactive})
+  }
+}
+
+class Product {
+  function create(name, quantity) {
+    INSERT INTO table products WITH name, quantity
+  }
+
+  function update(id:, payload: { name:, quantity: }) {
+    UPDATE INTO table products where id WITH name, quantity
+  }
+
+  function delete(id) {
+    DELETE FROM table products WHERE id
+  }
+}
+
+class Order {
+  function create(product_id, quantity, price, user_id) {
+    INSERT INTO table orders WITH product_id, quantity, price, user_id
+  }
+
+  function update(id:, payload: { quantity:, price: }) {
+    UPDATE INTO table orders where id WITH quantity, price, status = active
+  }
+
+  function cancel() {
+    self.update(id, payload{status: inactive})
+  }
+
+  function calculate_total() {
+    return quantity * price
+  }
+}
+
+class Invoice {
+  function create(order_id, total_amount, user_id) {
+    INSERT INTO table Invoice WITH order_id, total_amount, user_id, status = outstanding
+  }
+
+  function receivePayment() {
+    UPDATE INTO table Invoice WHERE id WITH invoice_id
+
+    mark invoice status to paid
+
+    Product.update(product_id, quantity - 1)
+  }
+}
