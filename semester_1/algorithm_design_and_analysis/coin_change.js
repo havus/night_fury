@@ -106,9 +106,6 @@ function calculateMaxChange(totalAmount, coins) {
 function calculateAndPrint(totalAmount, coins) {
   const totalChanges = calculateMaxChange(totalAmount, coins);
 
-  let fullText = `Column ${totalAmount} is ${totalChanges}, means coins change value of ${totalAmount}`;
-  fullText += ` can be formed using coins ${coins.join(', ')} with maximum ${totalChanges} changes.`;
-
   console.log(
     `Column ${totalAmount} is ${totalChanges}, means coins change value of ${totalAmount} can be formed using coins ${coins.join(', ')} with maximum `,
     '\x1b[32m', `${totalChanges} changes.`,
@@ -140,4 +137,9 @@ console.log('TEST CASE: IDR -> USD');
 // pembulatan 1 dollar = 15_000.00
 // 123.456 rupiah = 8,07 dollar = 807 cent
 const usd = [1, 5, 10, 25, 50, 100, 200, 500, 1_000, 2_000, 5_000, 10_000]; // in cent
-calculateAndPrint(807, usd); // 1067831
+// calculateAndPrint(807, usd); // 1067831
+
+// test case 3
+console.log('\n\n---TP2-W7-S11-R2\n');
+const soal_2 = [1, 5, 10, 25, 50, 100]
+calculateAndPrint(146, soal_2); // 913 changes
