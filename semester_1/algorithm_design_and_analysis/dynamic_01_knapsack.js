@@ -1,10 +1,11 @@
 
 /**
  * 
- * Author: havus
- * spreadsheet simulation: https://docs.google.com/spreadsheets/d/1Da4dV80nDq2IhPyhOuuRnXPy5HSVTKZallBSsUjkSE0/edit?usp=sharing
+ * Author:                  havus
+ * YouTube ref:             https://youtu.be/nLmhmB6NzcM
+ * Spreadsheet Simulation:  https://docs.google.com/spreadsheets/d/1Da4dV80nDq2IhPyhOuuRnXPy5HSVTKZallBSsUjkSE0/edit?usp=sharing
  * 
- *  thank me later :)
+ * thank me later :)
  * 
  */
 
