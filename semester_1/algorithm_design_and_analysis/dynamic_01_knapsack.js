@@ -45,21 +45,21 @@ function printBoard(arr, items) {
   // Technique can be used to deep copy literal values (boolean, number, string) and literal structures (array, object)
   //  ref: https://stackoverflow.com/questions/7486085/copy-array-by-value
   //  failed still have reference in second dimesion when we try [...arr] should be [[...arr[0]], [...arr[1]]] etc.
-  const newBoard = JSON.parse(JSON.stringify(arr));
+  const boardWithHeader = JSON.parse(JSON.stringify(arr));
 
   // https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
-  newBoard.unshift(Array.from(Array(arr[0].length).keys()));
+  boardWithHeader.unshift(Array.from(Array(arr[0].length).keys()));
 
-  for (let i = 0; i < newBoard.length; i++) {
+  for (let i = 0; i < boardWithHeader.length; i++) {
     let itemName = i == 0 ? '-' : items[i-1].name;
 
-    newBoard[i].unshift(itemName);
+    boardWithHeader[i].unshift(itemName);
   }
 
-  for (let i = 0; i < newBoard.length; i++) {
+  for (let i = 0; i < boardWithHeader.length; i++) {
     // [...Array(10).keys()]
     //=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    const row = newBoard[i].map(el => spacePad(el, maxDigit)).join(' | ');
+    const row = boardWithHeader[i].map(el => spacePad(el, maxDigit)).join(' | ');
 
     if (i == 0) {
       console.log([...Array(row.length).keys()].fill('-').join(''));
