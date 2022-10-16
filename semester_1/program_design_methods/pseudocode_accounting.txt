@@ -1,0 +1,221 @@
+
+
+Pseudocode Simple Accounting Program
+
+class Auth
+  constructor
+    ALL_USERS = []
+  endConstructor
+
+  function HashString(string)
+    return hashlib(string + SALT);
+  Endfunction
+
+  function SignIn
+    VAR username = get input from USER
+    VAR password = get input from USER
+
+    VAR existingUser = ALL_USERS.where username is same
+
+    return compare HashString(password) == existingUser.password
+  Endfunction
+
+  function SignUp
+    VAR username = get input from USER
+    VAR password = get input from USER
+
+    VAR existingUser = ALL_USERS.where username is same
+
+    IF existingUser present?
+      THEN return FALSE
+
+    INSERT to ALL_USERS { username: username, password: HashString(password) }
+
+    return TRUE
+  Endfunction
+EndClass
+
+
+/**
+ * 
+ * Author: havus
+ * 
+ * akm peny = akumulasi penyusutan
+ * 
+ * Features:
+ *  1.  Profit & Loss Report
+ *      attributes:
+ *        - total_sales, sales_return, sales_disc, net_sales
+ *        - beginning_inventory, purchase_cost, purchase_shipment_cost, purchase_return, purchase_disc, ending_inventory, hpp
+ *        - hpp, production_expense, depreciation_of_production_expense, net_profit
+ * 
+ *      total_sales - sales_return  - sales_disc  = net_sales
+ *      117_500_000 - 5_000_000     - 2_000_000   = 110_500_000
+ * 
+ *      Cost of Good Sold (COGS/HPP)
+ *      beginning_inventory + purchase_cost + purchase_shipment_cost  - purchase_return - purchase_disc - ending_inventory  = HPP
+ *      15_000_000          + 31_000_000    + 1_000_000               - 300_000         - 200_000       - 12_000_000        = 34_500_000
+ * 
+ *      Net Profit
+ *      net_sales   - HPP         - production_expense(incl. equipment,electricity,water)[water_electricity_cost  - employees_salary] = net_profit
+ *      110_500_000 - 34_500_000  - 1_300_000                                                                     - 10_000_000        = 64_700_000
+ * 
+ *  2.  Statement of Changes in Equity (laporan perubahan ekuitas)
+ *      beginning_capital + net_profit - prive      = statement_of_changes_in_equity
+ *      90_000_000        + 64_700_000 - 5_000_000  = 149_700_000
+ * 
+ *  3.  Trial Balance (Neraca saldo)
+ *      cash      + receivables + supplies  + ending_inventory  + prepaid_insurance + equipment - depreciation_of_equipment + vehicles    - depreciation_of_vehicle = trial_balance
+ *      4_700_000 + 6_500_000   + 2_000_000 + 12_000_000        + 12_000_000        + 5_000_000 - 500_000                   + 135_500_000 - 15_000_000              = 162_200_000
+ * 
+ *      debt        + statement_of_changes_in_equity = pasiva
+ *      12_500_000  + 149_700_000                    = 162_200_000
+ */
+
+class ReportHelper
+  Function InputRequiredAttributes
+    LOOP FOR REQUIRED_ATTRIBUTES
+      set VAR key = REQUIRED_ATTRIBUTES[index]
+      set attribute key = input from user
+    END LOOP
+  EndFunction
+EndClass
+
+class ProfitLossReport
+  include ReportHelper
+
+  constructor
+    REQUIRED_ATTRIBUTES = [
+      total_sales, sales_return, sales_disc,
+      beginning_inventory, purchase_cost, purchase_shipment_cost, purchase_return, purchase_disc, ending_inventory,
+      production_expense, water_electricity_cost, employees_salary
+    ]
+    SEQUENCY_ATTRIBUTES = [
+      total_sales, sales_return, sales_disc, net_sales,
+      beginning_inventory, purchase_cost, purchase_shipment_cost, purchase_return, purchase_disc, ending_inventory, hpp,
+      production_expense, water_electricity_cost, employees_salary, net_profit
+    ]
+  EndConstructor
+
+  class_attributes = *SEQUENCY_ATTRIBUTES
+
+  Function Perform
+    InputRequiredAttributes()
+
+    CalculateNetSales()
+    print attribute net_sales
+    
+    CalculateHPP()
+    print attribute hpp
+
+    CalculateNetProfit()
+    print attribute net_profit
+  EndFunction
+
+  Function CalculateNetSales
+    set attribute net_sales = total_sales - sales_return - sales_disc
+  EndFunction
+
+  Function CalculateHPP
+    set attribute hpp = beginning_inventory + purchase_cost + purchase_shipment_cost  - purchase_return - purchase_disc - ending_inventory
+  EndFunction
+
+  Function CalculateNetProfit
+    set attribute net_profit = net_sales - HPP - production_expense - water_electricity_cost - employees_salary
+  EndFunction
+EndClass
+
+class StatementOfChangesInEquity
+  include ReportHelper
+
+  constructor(Params type Object of ProfitLossReport)
+    REQUIRED_ATTRIBUTES = [beginning_capital, prive]
+    SEQUENCY_ATTRIBUTES = [beginning_capital, net_profit, prive, statement_of_changes_in_equity]
+
+    set net_profit = Object ProfitLossReport.net_profit
+  EndConstructor
+
+  class_attributes = *SEQUENCY_ATTRIBUTES
+
+  Function Perform
+    InputRequiredAttributes()
+
+    set attribute statement_of_changes_in_equity = beginning_capital + net_profit - prive
+
+    print attribute statement_of_changes_in_equity
+  EndFunction
+EndClass
+
+class TrialBalance
+  include ReportHelper
+
+  constructor(Params type Object of StatementOfChangesInEquity)
+    REQUIRED_ATTRIBUTES = [
+      cash, receivables, supplies, ending_inventory, prepaid_insurance, equipment, depreciation_of_equipment,
+      vehicles, depreciation_of_vehicle, debt
+    ]
+    SEQUENCY_ATTRIBUTES = [
+      cash, receivables, supplies, ending_inventory, prepaid_insurance, equipment, depreciation_of_equipment,
+      vehicles, depreciation_of_vehicle, trial_balance,
+      debt, statement_of_changes_in_equity, pasiva
+    ]
+
+    set attribute statement_of_changes_in_equity = StatementOfChangesInEquity.statement_of_changes_in_equity
+  EndConstructor
+
+  class_attributes = *SEQUENCY_ATTRIBUTES
+
+  Function Perform
+    InputRequiredAttributes()
+
+    CalculateTrialBalance()
+    print trial_balance
+
+    CalculatePasiva()
+    print pasiva
+  EndFunction
+
+  Function CalculateTrialBalance
+    set attribute trial_balance = (
+      cash + receivables + supplies + ending_inventory + prepaid_insurance +
+      equipment - depreciation_of_equipment + vehicles - depreciation_of_vehicle
+    )
+  EndFunction
+
+  Function CalculatePasiva
+    set attribute pasiva = debt + statement_of_changes_in_equity
+  EndFunction
+EndClass
+
+class ReportGeneration
+  constructor(Object of ProfitLossReport, Object of StatementOfChangesInEquity, Object of TrialBalance)
+    ALL_REPORTS = [
+      Object of ProfitLossReport,
+      Object of StatementOfChangesInEquity,
+      Object of TrialBalance
+    ]
+  endConstructor
+
+  Function Perform
+    LOOP FOR ALL_REPORTS
+      LOOP FOR attribute from ALL_REPORTS[i][SEQUENCY_ATTRIBUTES]
+        print "attribute": attribute
+      ENDLOOP
+    ENDLOOP
+  EndFunction
+EndClass
+
+VAR profitLossReportObject = ProfitLossReport.new()
+profitLossReportObject.Perform()
+
+VAR statementOfChangesInEquityObject = StatementOfChangesInEquity.new(profitLossReportObject)
+statementOfChangesInEquityObject.Perform()
+
+VAR trialBalanceObject = TrialBalance.new(statementOfChangesInEquityObject)
+trialBalanceObject.Perform()
+
+ReportGeneration.new(
+  profitLossReportObject,
+  statementOfChangesInEquityObject,
+  trialBalanceObject
+).Perform()
