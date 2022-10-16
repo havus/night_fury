@@ -3,3 +3,4 @@
 *.docx
 *.pdf
 *.zip
+node_modules
