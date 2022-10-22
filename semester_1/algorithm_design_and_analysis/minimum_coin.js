@@ -45,3 +45,7 @@ let V     = 146;
 let m     = coins.length;
 
 console.log("Minimum coins required is " + minCoins(coins, m, V) );
+
+console.log('\n------------------------------------------');
+const V2 = 269;
+console.log("Minimum coins required is " + minCoins(coins, m, V2) );

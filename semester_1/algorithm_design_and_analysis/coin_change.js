@@ -139,7 +139,11 @@ console.log('TEST CASE: IDR -> USD');
 const usd = [1, 5, 10, 25, 50, 100, 200, 500, 1_000, 2_000, 5_000, 10_000]; // in cent
 // calculateAndPrint(807, usd); // 1067831
 
-// test case 3
+// test case 5
 console.log('\n\n---TP2-W7-S11-R2\n');
 const soal_2 = [1, 5, 10, 25, 50, 100]
 calculateAndPrint(146, soal_2); // 913 changes
+
+console.log('\n\n---TK3-W8-S12-R2\n');
+const soal_3 = [1, 5, 10, 25, 50, 100]
+calculateAndPrint(269, soal_3); // 7654 changes
