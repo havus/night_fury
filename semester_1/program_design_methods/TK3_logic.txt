@@ -1,0 +1,146 @@
+
+Class Archive
+  type String
+  document File
+  
+  constructor(type, document)
+    this.type = type
+    this.document = document
+  endConstructor
+endClass
+
+Class Form
+  document File
+
+  func register(document)
+    this.document = document
+  endFunc
+
+  func validate
+    validate all document attributes
+    return bool
+  endFunc
+
+  func defineSamsatLocation
+    finder logic here
+    return location
+  endFunc
+endClass
+
+Module Samsat
+  Class Mutation
+    amount Int = 10_000
+    location String
+    invoice Invoice
+
+    constructor(location)
+      this.location = location
+    endConstructor
+
+    func CreateInvoice
+      this.invoice = Invoice.new(this.amount)
+    endFunc
+  endClass
+
+  Class BPKB
+    amount Int = 20_000
+    invoice Invoice
+
+    func CreateInvoice
+      this.invoice = Invoice.new(this.amount)
+    endFunc
+
+    func GenerateNew
+      if this.invoice.status != paid
+        THEN return false
+
+      return BPKB
+    endFunc
+  endClass
+
+  Class STNK
+    amount Int = 30_000
+    invoice Invoice
+
+    func CreateInvoice
+      this.invoice = Invoice.new(this.amount)
+    endFunc
+
+    func GenerateNew
+      if this.invoice.status != paid
+        THEN return false
+
+      return STNK
+    endFunc
+  endClass
+endModule
+
+Class Invoice
+  id Int
+  amount Int
+  status String
+
+  constructor(amount)
+    this.amount = amount
+    return Invoice
+  endConstructor
+
+  func receivePayment(id, amount)
+    set status to paid
+  endClass
+endClass
+
+Class Main
+  func Perform
+    archive   = createArchive()
+    location  = createFormAndSendToSamsat()
+
+    mutation_inv  = samsatMutationProcess(location)
+    bpkb_inv      = BpkbProcess()
+    stnk_inv      = StnkProcess()
+
+    IF mutation_inv.paid AND stnk_inv.paid? AND stnk_inv.paid?
+      THEN return samsat_BPKB.GenerateNew(), samsat_STNK.GenerateNew()
+    ELSE
+      THEN return 'Please pay invoice first'
+    endIF
+  endFunc
+
+  private func createArchive
+    KTP   = Archive.new(document from user)
+    BPKB  = Archive.new(document from user)
+    STNK  = Archive.new(document from user)
+
+    purchase_reciept_prove = Archive.new(document from user)
+    vehicle_physical_check = Archive.new(document from officer)
+  endClass
+
+  private func createFormAndSendToSamsat
+    form_registration = Form.new(document from user)
+    form_registration.validate
+    form_registration.defineSamsatLocation
+  endClass
+
+  private func samsatMutationProcess(location)
+    samsat_mutation = Samsat.Mutation.new(location)
+    samsat_mutation.CreateInvoice()
+
+    return samsat_mutation.invoice
+  endFunc
+
+  private func BpkbProcess
+    samsat_BPKB = Samsat.BPKB.new
+    samsat_BPKB.CreateInvoice()
+
+    return samsat_BPKB.invoice
+  endFunc
+
+  private func StnkProcess
+    samsat_STNK = Samsat.STNK.new
+    samsat_STNK.CreateInvoice()
+
+    return samsat_STNK.invoice
+  endFunc
+endClass
+
+DESK CHECK
