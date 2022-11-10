@@ -23,11 +23,12 @@ Coupling, dari perangkat lunak yang membagi modul pembelian dengan penjualan ter
 
 | No  | Coupling Level  | Coupling attributes | Resultant module design quality |
 | :-: | :-------------- | :---------------:   | :-----------------------------: |
-| 1   | Common          | Tight coupling      | Poorest                         |
-| 2   | External        | \|                  | \|                              |
+| 1   | Data            | Loose Coupling      | Best                            |
+| 2   | Stamp           | \|                  | \|                              |
 | 3   | Control         | \|                  | \|                              |
-| 4   | Stamp           | \|                  | \|                              |
-| 5   | Data            | Loose Coupling      | Best                            |
+| 4   | External        | \|                  | \|                              |
+| 5   | Common          | \|                  | \|                              |
+| 6   | Content         | Tight coupling      | Poorest                         |
 
 note: semakin rendah coupling, maka semakin baik
 
