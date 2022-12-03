@@ -23,7 +23,7 @@ CREATE TABLE room_types (
 CREATE TABLE rooms (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   room_type_id INT,
-  -- status ENUM("available", "under maintenance") remove redundancy with orders and checkin_checkouts table
+  status ENUM("available", "under maintenance"),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY(room_type_id) REFERENCES room_types(id)
@@ -71,9 +71,9 @@ INSERT INTO room_types (name, facilities, price) VALUES
 ('Enterprise Plus Double Bed', 'Minimalist, one queen size bed, flat-screen 32 inch TV, breakfast, large bathup, balcony', 510000);
 
 
-INSERT INTO rooms (room_type_id) VALUES
-(1), (1), (2), (2), (3), (3), (4), (4), (5), (5),
-(6), (6), (7), (7), (8), (8), (9), (9), (10), (10);
+INSERT INTO rooms (room_type_id, status) VALUES
+(1, "available"), (1, "available"), (2, "available"), (2, "available"), (3, "available"), (3, "available"), (4, "available"), (4, "available"), (5, "available"), (5, "available"),
+(6, "available"), (6, "available"), (7, "available"), (7, "available"), (8, "available"), (8, "available"), (9, "available"), (9, "available"), (10, "available"), (10, "available");
 
 INSERT INTO customers (name, gender, address, email, phone_number) VALUES
 ("Albert Dragunov", "male", "St. Louis 23b", "albertdragunov@mail.com", "016274910"),
