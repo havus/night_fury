@@ -2,5 +2,16 @@
 *.doc
 *.docx
 *.pdf
+*.ppt
 *.zip
+*.xls
+*.xlsx
+*.drawio
+*.png
+*.DS_STORE
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.mkv
 node_modules
