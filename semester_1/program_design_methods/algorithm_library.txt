@@ -1,0 +1,34 @@
+VAR still_loop [Boolean] default 1
+VAR books [Array of Object] default [data of books in library]
+
+WHILE still_loop
+  PRINT options user, P, B or Q
+
+  VAR user_input
+  VAR book_name
+  VAR book_code
+
+  INPUT user_input from user
+
+  SWITCH user_input
+  CASE P:
+    INPUT book_name from user
+    INPUT book_code from user
+
+    LOOP books
+      IF book_name AND book_code same
+        REMOVE book
+      ENDIF
+    ENDLOOP
+  CASE B:
+    INPUT book_name from user
+    INPUT book_code from user
+    Add to books
+
+  CASE Q:
+    SET still_loop to 0
+ENDWHILE
+
+LOOP books
+  print book
+ENDLOOP

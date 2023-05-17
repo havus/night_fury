@@ -1,0 +1,38 @@
+5 Komponen Pemecah Masalah AI (Problem Solving Agent) : 
+Initial State: This state requires an initial state for the problem which starts the AI agent towards a specified goal. In this state new methods also initialize problem domain solving by a specific class.
+Action: This stage of problem formulation works with function with a specific class taken from the initial state and all possible actions done in this stage.
+Transition: This stage of problem formulation integrates the actual action done by the previous action stage and collects the final stage to forward it to their next stage.
+Goal test: This stage determines that the specified goal achieved by the integrated transition model or not, whenever the goal achieves stop the action and forward into the next stage to determines the cost to achieve the goal.  
+Path costing: This component of problem-solving numerical assigned what will be the cost to achieve the goal. It requires all hardware software and human working cost.
+
+
+
+Heuristic Search :
+Generate & Test
+Simple Hill Climbing / Hill Climbing 
+Steepest-Ascent Hill Climbing
+Simulated Annealing
+Greedy
+Best-First Search
+A* (A Star)
+Bidirectional Search
+Beam search
+Tabu Search
+Constraint Satisfaction Problems
+
+
+
+Blind Search :
+Breadth-first Search
+Queue - Simpul Aktif - Visited
+
+Uniform-cost Search
+Depth-first Search
+Iterative-deeping Search
+Depth-limited Search
+Bi-directional Search
+
+
+Sehingga perbedaan mendasar dari Blind Search dan Heuristic Search adalah :
+Blind Search merupakan pencarian biasa, sedangkan Heuristic Search adalah pencarian bersyarat
+Variabel data pada Blind Search tidak mempunyai atribut / informasi tambahan, sedangkan pada Heuristic Search memiliki. Contoh pada kasus di atas, "pecah" dan "lonjong" merupakan atribut dari "kelereng".

@@ -111,7 +111,7 @@ Class Main
     BPKB  = Archive.new(document from user)
     STNK  = Archive.new(document from user)
 
-    purchase_reciept_prove = Archive.new(document from user)
+    purchase_receipt_prove = Archive.new(document from user)
     vehicle_physical_check = Archive.new(document from officer)
   endClass
 
