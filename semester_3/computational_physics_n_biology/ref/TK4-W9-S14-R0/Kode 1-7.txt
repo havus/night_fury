@@ -1,0 +1,200 @@
+#1
+from Bio.Seq import Seq
+
+seq1 = Seq("ATGATCTCGTAA")
+seq2 = Seq("ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAA")
+
+seq_combined = seq1 + seq2
+
+print(seq_combined.upper())
+
+#2
+from Bio.Seq import Seq
+
+seq1 = Seq("ATGATCTCGTAA")
+seq2 = Seq("ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAA")
+
+freq1 = {
+    "A": seq1.count("A"),
+    "T": seq1.count("T"),
+    "C": seq1.count("C"),
+    "G": seq1.count("G")
+}
+
+freq2 = {
+    "A": seq2.count("A"),
+    "T": seq2.count("T"),
+    "C": seq2.count("C"),
+    "G": seq2.count("G")
+}
+
+print("Frekuensi basa pada seq1:")
+print(freq1)
+
+print("Frekuensi basa pada seq2:")
+print(freq2)
+
+#3
+# Sekuens DNA
+generic_dna1 = "ATGATCTCGTAA"
+generic_dna2 = "ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAA"
+
+# Menggabungkan sekuens DNA menjadi satu
+generic_dna_combined = generic_dna1 + generic_dna2
+
+# Frekuensi setiap basa pada kedua sekuens DNA
+nucleotide_count = {"A": 0, "T": 0, "C": 0, "G": 0}
+
+for nucleotide in generic_dna_combined:
+    nucleotide_count[nucleotide] += 1
+
+print("Frekuensi setiap basa:")
+print(nucleotide_count)
+
+# Kandungan GC, kandungan AT, dan titik leleh kedua sekuens DNA
+gc_count = 0
+at_count = 0
+
+for nucleotide in generic_dna_combined:
+    if nucleotide == "G" or nucleotide == "C":
+        gc_count += 1
+    else:
+        at_count += 1
+
+gc_content = gc_count / len(generic_dna_combined) * 100
+at_content = at_count / len(generic_dna_combined) * 100
+
+melting_temp = (4 * gc_count) + (2 * at_count)
+
+print("\nKandungan GC: {:.2f}%".format(gc_content))
+print("Kandungan AT: {:.2f}%".format(at_content))
+print("Titik leleh: {}°C".format(melting_temp))
+
+#4
+# Berat molekul
+def calculate_molecular_weight(sequence):
+    a_count = sequence.count("A")
+    t_count = sequence.count("T")
+    c_count = sequence.count("C")
+    g_count = sequence.count("G")
+
+    molecular_weight = (a_count * 313.21) + (t_count * 304.2) + (c_count * 289.18) + (g_count * 329.21) - 61.96
+
+    return molecular_weight
+
+# Generic DNA
+generic_dna1 = "ATGATCTCGTAA"
+generic_dna2 = "ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAA"
+
+# Hitung berat molekul untuk kedua sekuens DNA
+mw1 = calculate_molecular_weight(generic_dna1)
+mw2 = calculate_molecular_weight(generic_dna2)
+
+print("Berat molekul generic_dna1: {:.2f}".format(mw1))
+print("Berat molekul generic_dna2: {:.2f}".format(mw2))
+
+#5
+from Bio.Seq import Seq
+from Bio.Align import PairwiseAligner
+
+# Buat objek Seq dari kedua sekuens DNA
+seq1 = Seq("ATGATCTCGTAA")
+seq2 = Seq("ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAA")
+
+# Local Alignment
+aligner = PairwiseAligner()
+aligner.mode = "local"
+alignments = aligner.align(seq1, seq2)
+print("Local Alignment:\n", alignments[0])
+
+# Global Alignment
+aligner.mode = "global"
+alignments = aligner.align(seq1, seq2)
+print("Global Alignment:\n", alignments[0])
+
+# Hitung similarity percentage
+similarity_local = alignments[0].score / min(len(seq1), len(seq2)) * 100
+print("Similarity Percentage (Local):", similarity_local)
+
+similarity_global = alignments[0].score / max(len(seq1), len(seq2)) * 100
+print("Similarity Percentage (Global):", similarity_global)
+
+#6
+from Bio.Seq import Seq
+from Bio import pairwise2
+
+# Buat objek Seq dari kedua sekuens DNA
+seq1 = Seq("ATGATCTCGTAA")
+seq2 = Seq("ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAA")
+
+# Lakukan pairwise alignment dengan metode global
+global_alignments = pairwise2.align.globalxx(seq1, seq2)
+
+# Tampilkan hasil global alignment
+print("\nHasil Global Alignment:")
+for alignment in global_alignments:
+    print(pairwise2.format_alignment(*alignment))
+
+# Hitung skor terbaik dan similarity percentage dari global alignment
+global_best_alignment = global_alignments[0]
+global_best_score = global_best_alignment.score
+global_similarity = global_best_score / max(len(seq1), len(seq2)) * 100
+
+print("\nGlobal Best Alignment Score:", global_best_score)
+print("Global Best Alignment:")
+print(pairwise2.format_alignment(*global_best_alignment))
+print("Global Similarity Percentage:", global_similarity)
+
+#7
+import matplotlib.pyplot as plt
+
+def dot_plot(seq1, seq2, window_size=10, threshold=7):
+    """
+    Fungsi untuk melakukan dot plot antara dua sekuens DNA
+    
+    Args:
+    - seq1 (str): Sekuens DNA pertama
+    - seq2 (str): Sekuens DNA kedua
+    - window_size (int): Ukuran jendela
+    - threshold (int): Threshold
+    
+    Return:
+    - None
+    """
+    
+    n = len(seq1)
+    m = len(seq2)
+    
+    # Inisialisasi matriks dot plot
+    dot_matrix = [[0] * m for i in range(n)]
+    
+    # Hitung skor di setiap jendela
+    for i in range(n - window_size + 1):
+        for j in range(m - window_size + 1):
+            window1 = seq1[i:i+window_size]
+            window2 = seq2[j:j+window_size]
+            score = sum([1 for k in range(window_size) if window1[k] == window2[k]])
+            if score >= threshold:
+                for k in range(window_size):
+                    dot_matrix[i+k][j+k] += 1
+    
+    # Tampilkan dot plot menggunakan heatmap
+    plt.imshow(dot_matrix, cmap="gray")
+    plt.xticks(range(m), seq2)
+    plt.yticks(range(n), seq1)
+    plt.xlabel("Sequence 2")
+    plt.ylabel("Sequence 1")
+    plt.show()
+
+# Import modul yang diperlukan
+from Bio.Seq import Seq
+
+# Definisikan sekuens DNA
+seq1 = Seq("ATGATCTCGTAA")
+seq2 = Seq("ATTAAAGGTTTATACCTTCCCAGGTAACAAACCAACCAA")
+
+# Lakukan dot plot untuk sekuens DNA yang diberikan
+dot_plot(str(seq1), str(seq2))
+
+
+
