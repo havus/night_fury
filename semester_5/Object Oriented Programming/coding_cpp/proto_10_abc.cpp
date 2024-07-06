@@ -11,8 +11,60 @@
 
   "Virtual Functions"
   Didefinisikan dengan keyword virtual `tanpa = 0`.
-  Memberikan kemampuan polymorphism tanpa menjadikan kelas sebagai ABC.
-  digunakan ketika Anda ingin menyediakan implementasi default yang dapat di-override oleh kelas turunan. Ini memberikan fleksibilitas untuk mengubah perilaku fungsi di kelas turunan tanpa memaksa implementasi ulang.
+  Memberikan kemampuan polymorphism tanpa menjadikan class sebagai ABC.
+  digunakan ketika Anda ingin menyediakan implementasi default yang dapat di-override oleh class turunan. Ini memberikan fleksibilitas untuk mengubah perilaku fungsi di class turunan tanpa memaksa implementasi ulang.
+
+  "Polymorphism" adalah konsep dalam OOP yg memungkinkan func/method untuk beroperasi pada objek dari berbagai class yang merupakan bagian dari hierarki abstract class yang sama. Polymorphism memungkinkan satu antarmuka untuk digunakan dengan berbagai tipe object.
+  jenis2:
+    Compile-time Polymorphism (Statik):
+      Dicapai melalui overloading (fungsi atau operator).
+      Contoh: Fungsi dengan nama yang sama tetapi parameter yang berbeda.
+    Runtime Polymorphism (Dinamis):
+      Dicapai melalui penggunaan fungsi virtual dan pewarisan class.
+      Contoh: Overriding metode dalam class turunan.
+  fungsi polymorphism:
+    - (abstraksi & generalisasi) untuk menggunakan interface umum untuk berbagai tipe objek,
+    meningkatkan fleksibilitas dan skalabilitas kode.
+    - (extension) untuk lebih mudah penambahan fungsi atau tipe objek baru tanpa mengubah kode yang sdh ada.
+    - (sederhana dan terorganisir)
+    mengurangi kompleksitas dan pengulangan kode dgn memungkinkan penanganan objek dari class yang berbeda dengan cara yang seragam.
+
+
+  "Late Binding"
+  disebut juga "Dynamic Binding"
+  mekanisme keputusan tentang metode mana yg akan dipanggil/dibuat saat runtime, bukan saat kompilasi.
+  inti dari runtime polymorphism.
+  korelasi:
+    - "virtual func": saat method dideklarasikan sebagai virtual di base class,
+        C++ menggunakan "late binding" untuk menentukan metode mana yang akan dipanggil
+        berdasarkan tipe objek yang sebenarnya, bukan tipe pointer atau reference
+    - "vtable (Virtual Table)" C++ mengimplementasikan "late binding" menggunakan tabel virtual (vtable).
+        vtable adalah array pointer ke fungsi virtual.
+        setiap class yg memiliki virtual func memiliki vtable sendiri, dan setiap objek 
+        dari class tersebut memiliki pointer ke vtable tersebut
+    - overriding: saat class turunan mengoverride virtual func dari class dasar,
+        vtable objek dari class turunan akan menunjuk ke metode yang di-override
+
+  Apakah kita dapat meng-override fungsi-fungsi non-virtual dalam C++? Apa dampaknya jika kita melakukannya?
+  - tidak, fungsi non-virtual tidak dapat di-override.
+    karena fungsi tidak berpartisipasi dalam mekanisme late binding.
+    tapi kita bisa mendefinisikan fungsi dengan nama yang sama di class turunanny.
+    ini sering disebut dgn "function hiding".
+
+  --- Contoh function hiding ---
+  class Base {
+  public:
+    void display() const {
+      std::cout << "Base display" << std::endl;
+    }
+  };
+
+  class Derived : public Base {
+  public:
+    void display() const { // Function hiding
+      std::cout << "Derived display" << std::endl;
+    }
+  };
 */
 
 #include <iostream>
