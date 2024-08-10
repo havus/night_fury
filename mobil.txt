@@ -1,0 +1,6 @@
+Porche Taychan,2020,100,available
+Tesla Model S,2020,100,available
+Toyota Fortuner,2004,150,available
+Toyota Rush,2004,150,available
+Mitsubishi Pajero Sport,2004,150,available
+Honda Odyssey,2021,200,available
