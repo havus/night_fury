@@ -29,6 +29,9 @@ public:
   bool isAvailable() const { return available; }
 
   void setAvailable(bool avail) { available = avail; }
+  void setName(const string& n) { name = n; }
+  void setYear(int y) { year = y; }
+  void setRentalPricePerDay(double price) { rentalPricePerDay = price; }
 
   virtual double calculateRentalCost(int days) const = 0;
 
@@ -133,7 +136,7 @@ public:
   void saveCarsToFile(const string& filename) const {
     ofstream file(filename);
     for (const Car* car : cars) {
-      // use operator overloading here
+      // cout << "DEBUG:" << *car << endl;
       file << *car << endl;
     }
   }
@@ -192,43 +195,173 @@ public:
       cout << *car << endl;
     }
   }
+
+  void updateCarData(const string& name) {
+    for (Car* car : cars) {
+      if (car->getName() == name) {
+        string newName;
+        int newYear;
+        double newPrice;
+        bool newAvail;
+        string availInput;
+
+        cout << "Enter new name: ";
+        getline(cin, newName);
+        cout << "Enter new year: ";
+        cin >> newYear;
+        cin.ignore();
+        cout << "Enter new rental price per day: ";
+        cin >> newPrice;
+        cin.ignore();
+        cout << "Is the car available? (yes/no): ";
+        getline(cin, availInput);
+        newAvail = (availInput == "yes") || (availInput == "y");
+
+        car->setName(newName);
+        car->setYear(newYear);
+        car->setRentalPricePerDay(newPrice);
+        car->setAvailable(newAvail);
+
+        cout << "Car data updated successfully!" << endl;
+        return;
+      }
+    }
+    cout << "Car not found!" << endl;
+  }
+
+  void menu() {
+    int choice;
+
+    do {
+      cout << "\nCar Rental System Menu\n";
+      cout << "1. Add Car\n";
+      cout << "2. Rent Car\n";
+      cout << "3. View Transactions\n";
+      cout << "4. Insert/Update Car Data\n";
+      cout << "5. View Cars (Sorted)\n";
+      cout << "6. Search Car by Name\n";
+      cout << "7. Save Cars to File\n";
+      cout << "8. Load Cars from File\n";
+      cout << "9. Exit\n";
+      cout << "Enter your choice: ";
+      cin >> choice;
+      cin.ignore();
+
+      if (cin.fail()) {
+          cin.clear(); // Clear the fail state
+          cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore remaining input in the buffer
+          cout << "Invalid input. Please enter a number.\n";
+      } else {
+        switch (choice) {
+        case 1: {
+          string name;
+          int year;
+          double price;
+          bool avail;
+          int type;
+
+          string availInput;
+
+          cout << "Enter car type (1 for Sedan, 2 for SUV, 3 for Minivan): ";
+          cin >> type;
+          cin.ignore();
+          cout << "Enter car name: ";
+          getline(cin, name);
+          cout << "Enter car year: ";
+          cin >> year;
+          cin.ignore();
+          cout << "Enter rental price per day: ";
+          cin >> price;
+          cin.ignore();
+          cout << "Is the car available? (yes/no): ";
+          getline(cin, availInput);
+          avail = (availInput == "yes") || (availInput == "y");
+
+          if (type == 1) {
+            addCar(new Sedan(name, year, price, avail));
+          } else if (type == 2) {
+            addCar(new SUV(name, year, price, avail));
+          } else if (type == 3) {
+            addCar(new Minivan(name, year, price, avail));
+          }
+
+          cout << "Car added successfully!" << endl;
+          break;
+        }
+        case 2: {
+          string customerName, carName;
+          int days;
+
+          cout << "Enter customer name: ";
+          getline(cin, customerName);
+          cout << "Enter car name: ";
+          getline(cin, carName);
+          cout << "Enter rental duration (days): ";
+          cin >> days;
+          cin.ignore();
+
+          rentCar(customerName, carName, days);
+          break;
+        }
+        case 3:
+          printTransactions();
+          break;
+        case 4: {
+          string name;
+          cout << "Enter car name to update: ";
+          getline(cin, name);
+          updateCarData(name);
+          break;
+        }
+        case 5: {
+          int sortChoice;
+          cout << "Sort by: 1. Name (Ascending), 2. Year (Descending): ";
+          cin >> sortChoice;
+          cin.ignore();
+
+          if (sortChoice == 1) {
+            sortCarsByName();
+          } else if (sortChoice == 2) {
+            sortCarsByYear();
+          }
+          printCars();
+          break;
+        }
+        case 6: {
+          string name;
+          cout << "Enter car name to search: ";
+          getline(cin, name);
+          searchCarByName(name);
+          break;
+        }
+        case 7:
+          saveCarsToFile("mobil.txt");
+          cout << "Cars saved to file successfully!" << endl;
+          break;
+        case 8:
+          loadCarsFromFile("mobil.txt");
+          cout << "Cars loaded from file successfully!" << endl;
+          break;
+        case 9:
+          cout << "Exiting program..." << endl;
+          break;
+        default:
+          cout << "Invalid choice! Please try again." << endl;
+        }
+      }
+    } while (choice != 9);
+  }
 };
 
 int main() {
   CarRentalSystem system;
+  system.menu();
 
-  // Program harus dapat membaca dan menulis informasi mobil ke dalam file teks (mobil.txt). Data mobil akan disimpan dalam format teks yang mudah dibaca dan dapat dimodifikasi. (insert dan update data mobil)
-  system.loadCarsFromFile("mobil.txt");
-
-  system.addCar(new Sedan("Porche Taychan", 2020, 100, true));
-  system.addCar(new Sedan("Tesla Model S", 2020, 100, true));
-  system.addCar(new SUV("Toyota Fortuner", 2004, 150, true));
-  system.addCar(new SUV("Toyota Rush", 2004, 150, true));
-  system.addCar(new SUV("Mitsubishi Pajero Sport", 2004, 150, true));
-  system.addCar(new Minivan("Honda Odyssey", 2021, 200, true));
-
-  system.saveCarsToFile("mobil.txt");
-
-  cout << "------ Rent Car Section -------" << endl;
-  system.rentCar("Nama pelanggan #1", "Toyota Fortuner", 3);
-
-  cout << "\n------ Print transaction Section -------" << endl;
-  system.printTransactions();
-
-  // 4.	Program harus dapat melakukan pencarian dengan nama mobil dan sorting daftar mobil berdasarkan:
-  //  a.	Nama secara ascending
-  //  b.	Tahun keluaran secara descending
-
-  cout << "\n------ Print searchCarByName -------" << endl;
-  system.searchCarByName("Porche Taychan");
-
-  cout << "\n------ sortCarsByName AND Print -------" << endl;
-  system.sortCarsByName();
-  system.printCars();
-
-  cout << "\n------ sortCarsByYear AND Print -------" << endl;
-  system.sortCarsByYear();
-  system.printCars();
-
+  // system.addCar(new Sedan("Porche Taychan", 2020, 100, true));
+  // system.addCar(new Sedan("Tesla Model S", 2020, 100, true));
+  // system.addCar(new SUV("Toyota Fortuner", 2004, 150, true));
+  // system.addCar(new SUV("Toyota Rush", 2004, 150, true));
+  // system.addCar(new SUV("Mitsubishi Pajero Sport", 2004, 150, true));
+  // system.addCar(new Minivan("Honda Odyssey", 2021, 200, true));
   return 0;
 }
